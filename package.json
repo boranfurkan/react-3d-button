@@ -1,6 +1,6 @@
 {
   "name": "react-3d-button",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A beautiful, customizable 3D button component for React with Next.js support, multiple themes, and easy CSS variable customization. Built on top of react-awesome-button with enhanced mobile touch support and Next.js compatibility.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
