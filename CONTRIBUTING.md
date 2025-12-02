@@ -5,7 +5,7 @@ Thank you for your interest in contributing!
 ## Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/react-3d-button.git`
+2. Clone your fork: `git clone https://github.com/boranfurkan/react-3d-button.git`
 3. Create a branch: `git checkout -b feature/your-feature-name`
 4. Install dependencies: `npm install`
 5. Make your changes
