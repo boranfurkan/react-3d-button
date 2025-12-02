@@ -48,7 +48,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/boranfurkan/react-3d-button.git"
+    "url": "git+https://github.com/boranfurkan/react-3d-button.git"
   },
   "bugs": {
     "url": "https://github.com/boranfurkan/react-3d-button/issues"
