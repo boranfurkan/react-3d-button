@@ -58,7 +58,7 @@
   "bugs": {
     "url": "https://github.com/boranfurkan/react-3d-button/issues"
   },
-  "homepage": "https://github.com/boranfurkan/react-3d-button#readme",
+  "homepage": "https://react-3d-button-demo.vercel.app/",
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
