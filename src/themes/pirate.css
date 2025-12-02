@@ -1,5 +1,5 @@
 /* Pirate Theme - Based on your game's theme */
-.aws-btn {
+.theme-pirate .aws-btn {
   /* Primary - Chamoisee/Coyote (Rich brown, main action) */
   --button-primary-color: #a07e56;
   --button-primary-color-dark: #604134;
