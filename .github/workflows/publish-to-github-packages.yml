@@ -1,0 +1,32 @@
+name: Publish to GitHub Packages
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-gpr:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@boranfurkan'
+      
+      - run: npm ci
+      
+      - run: npm run build
+      
+      - name: Update package.json for GitHub Packages
+        run: |
+          node -e "const pkg = require('./package.json'); pkg.name = '@boranfurkan/react-3d-button'; require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));"
+      
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
