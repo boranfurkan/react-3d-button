@@ -1,6 +1,6 @@
 # React 3D Button
 
-A beautiful, customizable 3D button component for React with Next.js support, multiple themes, and easy CSS variable customization.
+A beautiful, customizable 3D button component for React with Next.js support, toggle mode, multiple themes, and easy CSS variable customization.
 
 [![npm version](https://badge.fury.io/js/react-3d-button.svg)](https://www.npmjs.com/package/react-3d-button)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -15,6 +15,7 @@ A beautiful, customizable 3D button component for React with Next.js support, mu
 - ⚡ **Next.js Compatible** - Works seamlessly with Next.js 13+ and App Router
 - 🎯 **TypeScript Support** - Full TypeScript definitions included
 - 🎪 **Rich Interactions** - 3D press effects, ripple animations, hover states
+- 🔘 **Toggle Mode** - Built-in toggle/switch functionality with smooth animations
 - ♿ **Accessible** - Proper ARIA attributes and keyboard navigation
 - 📦 **Tree-shakeable** - ESM and CJS builds for optimal bundle size (~24KB)
 - 🎨 **9 Button Variants** - Primary, Secondary, Tertiary, Success, Error, Warning, Info, Anchor, Danger
@@ -149,29 +150,32 @@ Override CSS variables to create your own theme:
 
 ### Button3DProps
 
-| Prop             | Type                                                                                                            | Default     | Description                          |
-| ---------------- | --------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------------ |
-| `type`           | `'primary' \| 'secondary' \| 'tertiary' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'anchor' \| 'danger'` | `'primary'` | Button variant                       |
-| `size`           | `'small' \| 'medium' \| 'large' \| string`                                                                      | `undefined` | Button size                          |
-| `disabled`       | `boolean`                                                                                                       | `false`     | Disable the button                   |
-| `active`         | `boolean`                                                                                                       | `false`     | Keep button in pressed state         |
-| `visible`        | `boolean`                                                                                                       | `true`      | Control button visibility            |
-| `ripple`         | `boolean`                                                                                                       | `false`     | Enable ripple effect on press        |
-| `moveEvents`     | `boolean`                                                                                                       | `true`      | Enable 3D tilt on mouse move         |
-| `href`           | `string`                                                                                                        | `undefined` | Render as anchor tag with href       |
-| `onPress`        | `(event) => void`                                                                                               | `undefined` | Callback when button is pressed      |
-| `onPressed`      | `(event) => void`                                                                                               | `undefined` | Callback when press animation starts |
-| `onReleased`     | `(element) => void`                                                                                             | `undefined` | Callback when button is released     |
-| `onMouseDown`    | `(event) => void`                                                                                               | `undefined` | Mouse down event handler             |
-| `onMouseUp`      | `(event) => void`                                                                                               | `undefined` | Mouse up event handler               |
-| `before`         | `ReactNode`                                                                                                     | `undefined` | Content before children (e.g., icon) |
-| `after`          | `ReactNode`                                                                                                     | `undefined` | Content after children (e.g., icon)  |
-| `between`        | `boolean`                                                                                                       | `false`     | Space between before/after content   |
-| `className`      | `string`                                                                                                        | `undefined` | Additional CSS classes               |
-| `style`          | `CSSProperties`                                                                                                 | `undefined` | Inline styles                        |
-| `placeholder`    | `boolean`                                                                                                       | `true`      | Show placeholder when no children    |
-| `containerProps` | `HTMLAttributes`                                                                                                | `{}`        | Props passed to container element    |
-| `cssModule`      | `any`                                                                                                           | `undefined` | CSS module object for scoped styles  |
+| Prop             | Type                                                                                                            | Default     | Description                                                |
+| ---------------- | --------------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------- |
+| `type`           | `'primary' \| 'secondary' \| 'tertiary' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'anchor' \| 'danger'` | `'primary'` | Button variant                                             |
+| `size`           | `'small' \| 'medium' \| 'large' \| string`                                                                      | `undefined` | Button size                                                |
+| `disabled`       | `boolean`                                                                                                       | `false`     | Disable the button                                         |
+| `active`         | `boolean`                                                                                                       | `false`     | Keep button in pressed state (controlled mode for toggles) |
+| `defaultActive`  | `boolean`                                                                                                       | `false`     | Initial active state (uncontrolled mode for toggles)       |
+| `toggle`         | `boolean`                                                                                                       | `false`     | Enable toggle mode for persistent pressed states           |
+| `onChange`       | `(active: boolean) => void`                                                                                     | `undefined` | Callback when toggle state changes                         |
+| `visible`        | `boolean`                                                                                                       | `true`      | Control button visibility                                  |
+| `ripple`         | `boolean`                                                                                                       | `false`     | Enable ripple effect on press                              |
+| `moveEvents`     | `boolean`                                                                                                       | `true`      | Enable 3D tilt on mouse move                               |
+| `href`           | `string`                                                                                                        | `undefined` | Render as anchor tag with href                             |
+| `onPress`        | `(event) => void`                                                                                               | `undefined` | Callback when button is pressed                            |
+| `onPressed`      | `(event) => void`                                                                                               | `undefined` | Callback when press animation starts                       |
+| `onReleased`     | `(element) => void`                                                                                             | `undefined` | Callback when button is released                           |
+| `onMouseDown`    | `(event) => void`                                                                                               | `undefined` | Mouse down event handler                                   |
+| `onMouseUp`      | `(event) => void`                                                                                               | `undefined` | Mouse up event handler                                     |
+| `before`         | `ReactNode`                                                                                                     | `undefined` | Content before children (e.g., icon)                       |
+| `after`          | `ReactNode`                                                                                                     | `undefined` | Content after children (e.g., icon)                        |
+| `between`        | `boolean`                                                                                                       | `false`     | Space between before/after content                         |
+| `className`      | `string`                                                                                                        | `undefined` | Additional CSS classes                                     |
+| `style`          | `CSSProperties`                                                                                                 | `undefined` | Inline styles                                              |
+| `placeholder`    | `boolean`                                                                                                       | `true`      | Show placeholder when no children                          |
+| `containerProps` | `HTMLAttributes`                                                                                                | `{}`        | Props passed to container element                          |
+| `cssModule`      | `any`                                                                                                           | `undefined` | CSS module object for scoped styles                        |
 
 ## 🎯 Examples
 
@@ -245,6 +249,61 @@ const [isActive, setIsActive] = useState(false);
   Toggle Active
 </Button3D>;
 ```
+
+### Toggle Mode
+
+Transform buttons into interactive toggle switches with persistent pressed states:
+
+```tsx
+// Uncontrolled toggle (manages its own state)
+<Button3D
+  type="success"
+  toggle
+  defaultActive={false}
+  onChange={(active) => console.log('Toggle state:', active)}
+>
+  Click to Toggle
+</Button3D>
+
+// Controlled toggle (you manage the state)
+const [isEnabled, setIsEnabled] = useState(false);
+
+<Button3D
+  type="primary"
+  toggle
+  active={isEnabled}
+  onChange={setIsEnabled}
+>
+  {isEnabled ? '✓ Enabled' : 'Disabled'}
+</Button3D>
+
+// Toggle with icons (Lucide React example)
+import { Check, Circle } from 'lucide-react';
+
+const [notifications, setNotifications] = useState(true);
+
+<Button3D
+  type="success"
+  toggle
+  active={notifications}
+  onChange={setNotifications}
+>
+  {notifications ? <><Check size={16} /> ON</> : <><Circle size={16} /> OFF</>}
+</Button3D>
+
+// Settings panel example
+<Button3D
+  type={darkMode ? 'primary' : 'secondary'}
+  toggle
+  active={darkMode}
+  onChange={setDarkMode}
+  size="small"
+>
+  {darkMode ? '🌙 Dark' : '☀️ Light'}
+</Button3D>
+```
+
+**[🔘 View toggle examples →](https://react-3d-button-demo.vercel.app/toggle)**
 
 ## 🎨 CSS Variables Reference
 

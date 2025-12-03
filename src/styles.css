@@ -301,10 +301,6 @@ button.aws-btn .aws-btn__wrapper {
   border: var(--button-primary-border);
 }
 
-.aws-btn--primary .aws-btn__content path {
-  fill: var(--button-primary-color-light);
-}
-
 .aws-btn--primary .aws-btn__wrapper:hover .aws-btn__content {
   background: var(--button-primary-color-hover);
 }
@@ -321,10 +317,6 @@ button.aws-btn .aws-btn__wrapper {
   background: var(--button-secondary-color);
   color: var(--button-secondary-color-light);
   border: var(--button-secondary-border);
-}
-
-.aws-btn--secondary .aws-btn__content path {
-  fill: var(--button-secondary-color-light);
 }
 
 .aws-btn--secondary .aws-btn__wrapper:hover .aws-btn__content {
@@ -345,10 +337,6 @@ button.aws-btn .aws-btn__wrapper {
   border: var(--button-tertiary-border);
 }
 
-.aws-btn--tertiary .aws-btn__content path {
-  fill: var(--button-tertiary-color-light);
-}
-
 .aws-btn--tertiary .aws-btn__wrapper:hover .aws-btn__content {
   background: var(--button-tertiary-color-hover);
 }
@@ -365,10 +353,6 @@ button.aws-btn .aws-btn__wrapper {
   background: var(--button-success-color);
   color: var(--button-success-color-light);
   border: var(--button-success-border);
-}
-
-.aws-btn--success .aws-btn__content path {
-  fill: var(--button-success-color-light);
 }
 
 .aws-btn--success .aws-btn__wrapper:hover .aws-btn__content {
@@ -389,10 +373,6 @@ button.aws-btn .aws-btn__wrapper {
   border: var(--button-error-border);
 }
 
-.aws-btn--error .aws-btn__content path {
-  fill: var(--button-error-color-light);
-}
-
 .aws-btn--error .aws-btn__wrapper:hover .aws-btn__content {
   background: var(--button-error-color-hover);
 }
@@ -409,10 +389,6 @@ button.aws-btn .aws-btn__wrapper {
   background: var(--button-warning-color);
   color: var(--button-warning-color-light);
   border: var(--button-warning-border);
-}
-
-.aws-btn--warning .aws-btn__content path {
-  fill: var(--button-warning-color-light);
 }
 
 .aws-btn--warning .aws-btn__wrapper:hover .aws-btn__content {
@@ -433,10 +409,6 @@ button.aws-btn .aws-btn__wrapper {
   border: var(--button-info-border);
 }
 
-.aws-btn--info .aws-btn__content path {
-  fill: var(--button-info-color-light);
-}
-
 .aws-btn--info .aws-btn__wrapper:hover .aws-btn__content {
   background: var(--button-info-color-hover);
 }
@@ -455,10 +427,6 @@ button.aws-btn .aws-btn__wrapper {
   border: var(--button-anchor-border);
 }
 
-.aws-btn--anchor .aws-btn__content path {
-  fill: var(--button-anchor-color-light);
-}
-
 .aws-btn--anchor .aws-btn__wrapper:hover .aws-btn__content {
   background: var(--button-anchor-color-hover);
 }
@@ -475,10 +443,6 @@ button.aws-btn .aws-btn__wrapper {
   background: var(--button-danger-color);
   color: var(--button-danger-color-light);
   border: var(--button-danger-border);
-}
-
-.aws-btn--danger .aws-btn__content path {
-  fill: var(--button-danger-color-light);
 }
 
 .aws-btn--danger .aws-btn__wrapper:hover .aws-btn__content {

@@ -37,6 +37,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Built on top of [react-awesome-button](https://github.com/rcaferati/react-awesome-button) by [@rcaferati](https://github.com/rcaferati)
 
+## [1.1.0] - 2024-12-03
+
+### Added
+
+- **Toggle Mode** - New toggle/switch functionality for persistent pressed states
+  - `toggle` prop to enable toggle mode
+  - `defaultActive` prop for uncontrolled toggle state
+  - `onChange` callback for toggle state changes
+  - Controlled and uncontrolled mode support
+  - Smooth animations without flash on initial render
+  - Works seamlessly with all button variants and themes
+
+### Fixed
+
+- SVG icon color inheritance - Icons now properly inherit text color using `currentColor`
+- Initial render flash for buttons with `defaultActive={true}` - Now initializes in correct state immediately
+- Icon fill color issues across different button types
+
+### Improved
+
+- Better SVG/icon support with proper color inheritance
+- Enhanced TypeScript types for toggle props
+- Updated documentation with toggle examples
+- Added comprehensive toggle demo page
+
 ## [Unreleased]
 
 ### Planned Features

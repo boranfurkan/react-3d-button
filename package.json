@@ -1,7 +1,7 @@
 {
   "name": "react-3d-button",
-  "version": "1.0.4",
-  "description": "A beautiful, customizable 3D button component for React with Next.js support, multiple themes, and easy CSS variable customization. Built on top of react-awesome-button with enhanced mobile touch support and Next.js compatibility.",
+  "version": "1.1.0",
+  "description": "A beautiful, customizable 3D button component for React with Next.js support, toggle mode, multiple themes, and easy CSS variable customization. Built on top of react-awesome-button with enhanced mobile touch support and Next.js compatibility.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -47,7 +47,11 @@
     "customizable",
     "awesome-button",
     "tactile",
-    "interactive"
+    "interactive",
+    "toggle",
+    "toggle-button",
+    "switch",
+    "toggle-switch"
   ],
   "author": "Furkan Boran",
   "license": "MIT",

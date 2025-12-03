@@ -36,11 +36,13 @@ export type Button3DProps = {
   className?: string | null;
   containerProps?: React.HTMLAttributes<HTMLElement>;
   cssModule?: Record<string, string> | null;
+  defaultActive?: boolean;
   disabled?: boolean;
   element?: React.ElementType | null;
   extra?: React.ReactNode;
   href?: string | null;
   moveEvents?: boolean;
+  onChange?: ((active: boolean) => void) | null;
   onMouseDown?: ((event: React.MouseEvent | React.TouchEvent) => void) | null;
   onMouseUp?: ((event: React.MouseEvent | React.TouchEvent) => void) | null;
   onPress?: ((event: React.MouseEvent | React.TouchEvent) => void) | null;
@@ -51,6 +53,7 @@ export type Button3DProps = {
   rootElement?: string;
   size?: 'small' | 'medium' | 'large' | string | null;
   style?: React.CSSProperties;
+  toggle?: boolean;
   type?:
     | 'primary'
     | 'secondary'
@@ -65,7 +68,7 @@ export type Button3DProps = {
 };
 
 const Button3D = ({
-  active = false,
+  active: activeProp,
   after = null,
   before = null,
   between = false,
@@ -73,11 +76,13 @@ const Button3D = ({
   className = null,
   containerProps = {},
   cssModule = null,
+  defaultActive = false,
   disabled = false,
   element = null,
   extra = null,
   href = null,
   moveEvents = true,
+  onChange = null,
   onMouseDown = null,
   onMouseUp = null,
   onPress = null,
@@ -88,16 +93,26 @@ const Button3D = ({
   rootElement = ROOTELM,
   size = null,
   style = {},
+  toggle = false,
   type = 'primary',
   visible = true,
 }: Button3DProps) => {
-  const [pressPosition, setPressPosition] = React.useState<string | null>(null);
+  // Determine if component is controlled or uncontrolled
+  const isControlled = activeProp !== undefined;
+  const initialActive = isControlled ? activeProp : defaultActive;
+
+  const [pressPosition, setPressPosition] = React.useState<string | null>(
+    toggle && initialActive ? `${rootElement}--active` : null
+  );
+  const [internalActive, setInternalActive] = React.useState(defaultActive);
+
+  const active = isControlled ? activeProp : internalActive;
   const button = React.useRef<HTMLElement | null>(null);
   const content = React.useRef<HTMLElement | null>(null);
   const container = React.useRef<HTMLElement | null>(null);
   const child = React.useRef<HTMLElement | null>(null);
   const over = React.useRef(false);
-  const pressed = React.useRef(0);
+  const pressed = React.useRef(toggle && initialActive ? 2 : 0);
   const timer = React.useRef<NodeJS.Timeout | null>(null);
   const touchScreen = React.useRef(0);
   const RenderComponent: any = element || (href ? Anchor : Button);
@@ -125,6 +140,17 @@ const Button3D = ({
       }
     };
   }, []);
+
+  // Initialize pressed state when active changes (for toggle mode with defaultActive)
+  React.useEffect(() => {
+    if (toggle && active) {
+      pressed.current = 2;
+      setPressPosition(`${rootElement}--active`);
+    } else if (toggle && !active) {
+      pressed.current = 0;
+      setPressPosition(null);
+    }
+  }, [active, toggle, rootElement]);
 
   const getRootClassName = React.useMemo(() => {
     const classList = [
@@ -248,7 +274,12 @@ const Button3D = ({
 
   const pressIn = React.useCallback(
     (event: React.MouseEvent | React.TouchEvent) => {
-      if (isDisabled === true || pressed.current === 2) {
+      // In toggle mode, allow pressing even if already pressed (pressed.current === 2)
+      if (isDisabled === true) {
+        return;
+      }
+      // In non-toggle mode, don't allow pressing if already in active state
+      if (!toggle && pressed.current === 2) {
         return;
       }
       pressed.current = 1;
@@ -261,7 +292,7 @@ const Button3D = ({
       }
       setPressPosition(`${rootElement}--active`);
     },
-    [isDisabled, rootElement, onPressed]
+    [isDisabled, toggle, rootElement, onPressed]
   );
 
   const handleAction = React.useCallback(
@@ -270,9 +301,19 @@ const Button3D = ({
       if (!element) {
         return;
       }
+
+      // Handle toggle behavior
+      if (toggle) {
+        const newActiveState = !active;
+        if (!isControlled) {
+          setInternalActive(newActiveState);
+        }
+        onChange && onChange(newActiveState);
+      }
+
       onPress && onPress(event);
     },
-    [onPress]
+    [onPress, toggle, active, isControlled, onChange]
   );
 
   const pressOut = React.useCallback(
@@ -298,6 +339,21 @@ const Button3D = ({
 
       handleAction(event);
 
+      // In toggle mode, determine the new active state after the toggle
+      if (toggle) {
+        const willBeActive = !active;
+        if (willBeActive) {
+          // Will be active - keep pressed
+          pressed.current = 2;
+        } else {
+          // Will be inactive - force immediate release regardless of hover state
+          pressed.current = 0;
+          clearPress({ force: true });
+        }
+        return;
+      }
+
+      // Non-toggle mode: standard behavior
       if (active === true) {
         pressed.current = 2;
         return;
@@ -306,7 +362,7 @@ const Button3D = ({
       pressed.current = 0;
       clearPress();
     },
-    [isDisabled, ripple, active, createRipple, handleAction, clearPress]
+    [isDisabled, ripple, active, toggle, createRipple, handleAction, clearPress]
   );
 
   const getMoveEvents = React.useCallback(() => {
