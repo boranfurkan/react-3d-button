@@ -1,13 +1,13 @@
 /* React 3D Button - Base Styles */
 
 .aws-btn {
-  /* Base Dimensions */
-  --button-default-height: 48px;
+  /* Base Dimensions - Default to 'md' size */
+  --button-default-height: 40px;
   --button-default-font-size: 14px;
-  --button-default-line-height: 24px;
+  --button-default-line-height: 20px;
   --button-default-border-radius: 6px;
   --button-default-placeholder-width: 120px;
-  --button-horizontal-padding: 20px;
+  --button-horizontal-padding: 18px;
 
   /* 3D Effect Configuration */
   --button-raise-level: 5px;
@@ -498,21 +498,176 @@ button.aws-btn .aws-btn__wrapper {
     infinite;
 }
 
+/* ===========================================
+   SIZE VARIANTS
+   New granular sizing system
+   =========================================== */
+
+/* Extra Small (xs) - 24px height */
+.aws-btn--xs {
+  --button-default-height: 24px;
+  --button-default-font-size: 10px;
+  --button-default-line-height: 14px;
+  --button-horizontal-padding: 10px;
+  --button-raise-level: 3px;
+}
+
+/* Small (sm) - 32px height */
+.aws-btn--sm {
+  --button-default-height: 32px;
+  --button-default-font-size: 12px;
+  --button-default-line-height: 16px;
+  --button-horizontal-padding: 14px;
+  --button-raise-level: 4px;
+}
+
+/* Medium (md) - 40px height - Default */
+.aws-btn--md {
+  --button-default-height: 40px;
+  --button-default-font-size: 14px;
+  --button-default-line-height: 20px;
+  --button-horizontal-padding: 18px;
+  --button-raise-level: 5px;
+}
+
+/* Large (lg) - 48px height */
+.aws-btn--lg {
+  --button-default-height: 48px;
+  --button-default-font-size: 16px;
+  --button-default-line-height: 24px;
+  --button-horizontal-padding: 22px;
+  --button-raise-level: 5px;
+}
+
+/* Extra Large (xl) - 56px height */
+.aws-btn--xl {
+  --button-default-height: 56px;
+  --button-default-font-size: 18px;
+  --button-default-line-height: 28px;
+  --button-horizontal-padding: 26px;
+  --button-raise-level: 6px;
+}
+
+/* 2X Large (2xl) - 64px height */
+.aws-btn--2xl {
+  --button-default-height: 64px;
+  --button-default-font-size: 20px;
+  --button-default-line-height: 32px;
+  --button-horizontal-padding: 32px;
+  --button-raise-level: 7px;
+}
+
+/* Legacy size support - maps to new sizes */
 .aws-btn--small {
-  height: 32px;
-  font-size: 12px;
+  --button-default-height: 32px;
+  --button-default-font-size: 12px;
+  --button-default-line-height: 16px;
+  --button-horizontal-padding: 14px;
+  --button-raise-level: 4px;
 }
 
 .aws-btn--medium {
-  height: 48px;
-  font-size: 16px;
+  --button-default-height: 40px;
+  --button-default-font-size: 14px;
+  --button-default-line-height: 20px;
+  --button-horizontal-padding: 18px;
+  --button-raise-level: 5px;
 }
 
 .aws-btn--large {
-  height: 64px;
-  font-size: 18px;
+  --button-default-height: 48px;
+  --button-default-font-size: 16px;
+  --button-default-line-height: 24px;
+  --button-horizontal-padding: 22px;
+  --button-raise-level: 5px;
 }
 
+/* ===========================================
+   BORDER RADIUS VARIANTS
+   =========================================== */
+
+.aws-btn--rounded-none {
+  --button-default-border-radius: 0px;
+}
+
+.aws-btn--rounded-sm {
+  --button-default-border-radius: 4px;
+}
+
+.aws-btn--rounded-md {
+  --button-default-border-radius: 6px;
+}
+
+.aws-btn--rounded-lg {
+  --button-default-border-radius: 12px;
+}
+
+.aws-btn--rounded-xl {
+  --button-default-border-radius: 16px;
+}
+
+.aws-btn--rounded-full {
+  --button-default-border-radius: 9999px;
+}
+
+/* ===========================================
+   FULL WIDTH
+   =========================================== */
+
+.aws-btn--full-width {
+  width: 100%;
+  display: block;
+}
+
+/* ===========================================
+   ICON ONLY BUTTON
+   =========================================== */
+
+.aws-btn--icon-only {
+  width: var(--button-default-height);
+  padding: 0;
+}
+
+.aws-btn--icon-only .aws-btn__content {
+  padding: 0;
+  justify-content: center;
+}
+
+/* ===========================================
+   LOADING STATE
+   =========================================== */
+
+.aws-btn--loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+.aws-btn__spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.aws-btn__spinner-icon {
+  width: 1.2em;
+  height: 1.2em;
+  animation: button-spinner 0.8s linear infinite;
+}
+
+@keyframes button-spinner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.aws-btn--loading .aws-btn__spinner + span {
+  margin-left: 8px;
+}
+
+/* Legacy icon class (deprecated, use --icon-only) */
 .aws-btn--icon {
   width: var(--button-default-height);
   padding: 0;
@@ -522,6 +677,7 @@ button.aws-btn .aws-btn__wrapper {
   padding: 0;
 }
 
+/* Legacy fill class (deprecated, use --full-width) */
 .aws-btn--fill {
   width: 100%;
 }

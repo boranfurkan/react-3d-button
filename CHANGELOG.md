@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.0] - 2024-12-26
+
+### Added
+
+- **Granular sizing system** - 6 new size options: `xs` (24px), `sm` (32px), `md` (40px), `lg` (48px), `xl` (56px), `2xl` (64px)
+- **Border radius variants** - New `rounded` prop with options: `none`, `sm`, `md`, `lg`, `xl`, `full` (pill shape)
+- **Full width support** - New `fullWidth` prop to make buttons span container width
+- **Loading state** - New `loading` and `loadingText` props with built-in spinner animation
+- **Icon-only buttons** - New `iconOnly` prop for square buttons perfect for icons
+- **Comprehensive TypeScript JSDoc** - All props now have detailed JSDoc documentation with examples
+- **Type exports** - New exported types: `ButtonSize`, `ButtonType`, `ButtonRounded`
+- **ARIA attributes** - Added `aria-disabled` and `aria-busy` for better accessibility
+
+### Changed
+
+- Default button size changed from 48px to 40px (`md` size) for better proportions
+- Improved TypeScript types - removed `| null` from optional props for better IDE autocompletion
+- `className` prop now correctly typed as `string` instead of `string | null`
+- Legacy sizes (`small`, `medium`, `large`) are still supported and mapped to new sizes
+
+### Fixed
+
+- IDE autocompletion now works correctly for `className` and other string props
+
 ## [1.2.0] - 2024-12-13
 
 ### Added

@@ -10,10 +10,14 @@ A beautiful, customizable 3D button component for React with Next.js support, to
 ## ✨ Features
 
 - 🎨 **Multiple Pre-built Themes** - Ocean, Sunset, Forest, Pirate, Neon, and Default
+- 📐 **Granular Sizing** - 6 size options (xs, sm, md, lg, xl, 2xl) plus legacy support
+- 🔘 **Border Radius Variants** - From sharp corners to pill-shaped buttons
+- 📏 **Full Width Support** - Buttons that span their container
+- ⏳ **Loading States** - Built-in spinner with optional loading text
 - 🎭 **Easy Customization** - Override CSS variables for complete control
 - 📱 **Mobile Optimized** - Enhanced touch support with fixed mobile interaction issues
 - ⚡ **Next.js Compatible** - Works seamlessly with Next.js 13+ and App Router
-- 🎯 **TypeScript Support** - Full TypeScript definitions included
+- 🎯 **TypeScript Support** - Full TypeScript definitions with comprehensive JSDoc
 - 🎪 **Rich Interactions** - 3D press effects, ripple animations, hover states
 - 🔘 **Toggle Mode** - Built-in toggle/switch functionality with smooth animations
 - ♿ **Accessible** - Proper ARIA attributes and keyboard navigation
@@ -171,9 +175,14 @@ Override CSS variables to create your own theme:
 | Prop             | Type                                                                                                            | Default     | Description                                                |
 | ---------------- | --------------------------------------------------------------------------------------------------------------- | ----------- | ---------------------------------------------------------- |
 | `type`           | `'primary' \| 'secondary' \| 'tertiary' \| 'success' \| 'error' \| 'warning' \| 'info' \| 'anchor' \| 'danger'` | `'primary'` | Button variant                                             |
-| `size`           | `'small' \| 'medium' \| 'large' \| string`                                                                      | `undefined` | Button size                                                |
+| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| '2xl'`                                                                 | `'md'`      | Button size (legacy: `small`, `medium`, `large` also work) |
+| `rounded`        | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'`                                                              | `'md'`      | Border radius variant                                      |
+| `fullWidth`      | `boolean`                                                                                                       | `false`     | Make button span full container width                      |
+| `iconOnly`       | `boolean`                                                                                                       | `false`     | Square button with no padding (for icons)                  |
+| `loading`        | `boolean`                                                                                                       | `false`     | Show loading spinner and disable interaction               |
+| `loadingText`    | `string`                                                                                                        | `undefined` | Text to show alongside spinner when loading                |
 | `disabled`       | `boolean`                                                                                                       | `false`     | Disable the button                                         |
-| `active`         | `boolean`                                                                                                       | `false`     | Keep button in pressed state (controlled mode for toggles) |
+| `active`         | `boolean`                                                                                                       | `undefined` | Keep button in pressed state (controlled mode for toggles) |
 | `defaultActive`  | `boolean`                                                                                                       | `false`     | Initial active state (uncontrolled mode for toggles)       |
 | `toggle`         | `boolean`                                                                                                       | `false`     | Enable toggle mode for persistent pressed states           |
 | `onChange`       | `(active: boolean) => void`                                                                                     | `undefined` | Callback when toggle state changes                         |
@@ -181,6 +190,7 @@ Override CSS variables to create your own theme:
 | `ripple`         | `boolean`                                                                                                       | `false`     | Enable ripple effect on press                              |
 | `moveEvents`     | `boolean`                                                                                                       | `true`      | Enable 3D tilt on mouse move                               |
 | `href`           | `string`                                                                                                        | `undefined` | Render as anchor tag with href                             |
+| `element`        | `React.ElementType`                                                                                             | `undefined` | Custom element type (e.g., Next.js Link)                   |
 | `onPress`        | `(event) => void`                                                                                               | `undefined` | Callback when button is pressed                            |
 | `onPressed`      | `(event) => void`                                                                                               | `undefined` | Callback when press animation starts                       |
 | `onReleased`     | `(element) => void`                                                                                             | `undefined` | Callback when button is released                           |
@@ -193,7 +203,42 @@ Override CSS variables to create your own theme:
 | `style`          | `CSSProperties`                                                                                                 | `undefined` | Inline styles                                              |
 | `placeholder`    | `boolean`                                                                                                       | `true`      | Show placeholder when no children                          |
 | `containerProps` | `HTMLAttributes`                                                                                                | `{}`        | Props passed to container element                          |
-| `cssModule`      | `any`                                                                                                           | `undefined` | CSS module object for scoped styles                        |
+| `cssModule`      | `Record<string, string>`                                                                                        | `undefined` | CSS module object for scoped styles                        |
+| `rootElement`    | `string`                                                                                                        | `'aws-btn'` | Root CSS class prefix for custom theming                   |
+| `extra`          | `ReactNode`                                                                                                     | `undefined` | Extra content inside wrapper (badges, etc.)                |
+
+### Type Exports
+
+```tsx
+import type {
+  Button3DProps,
+  ButtonSize,
+  ButtonType,
+  ButtonRounded,
+} from 'react-3d-button';
+
+type ButtonSize =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | 'small'
+  | 'medium'
+  | 'large';
+type ButtonType =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'info'
+  | 'anchor'
+  | 'danger';
+type ButtonRounded = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full';
+```
 
 ## 🎯 Examples
 
@@ -213,9 +258,75 @@ Override CSS variables to create your own theme:
 ### Button Sizes
 
 ```tsx
+// New granular sizes (recommended)
+<Button3D size="xs">Extra Small</Button3D>   // 24px height
+<Button3D size="sm">Small</Button3D>          // 32px height
+<Button3D size="md">Medium</Button3D>         // 40px height (default)
+<Button3D size="lg">Large</Button3D>          // 48px height
+<Button3D size="xl">Extra Large</Button3D>    // 56px height
+<Button3D size="2xl">2X Large</Button3D>      // 64px height
+
+// Legacy sizes (still supported for backwards compatibility)
 <Button3D size="small">Small</Button3D>
 <Button3D size="medium">Medium</Button3D>
 <Button3D size="large">Large</Button3D>
+```
+
+### Border Radius Variants
+
+```tsx
+<Button3D rounded="none">No Radius</Button3D>    // 0px
+<Button3D rounded="sm">Small</Button3D>          // 4px
+<Button3D rounded="md">Medium</Button3D>         // 6px (default)
+<Button3D rounded="lg">Large</Button3D>          // 12px
+<Button3D rounded="xl">Extra Large</Button3D>    // 16px
+<Button3D rounded="full">Pill Shape</Button3D>   // 9999px
+```
+
+### Full Width Button
+
+```tsx
+<Button3D fullWidth type="primary">
+  Full Width Submit
+</Button3D>
+```
+
+### Loading State
+
+```tsx
+// Simple loading spinner
+<Button3D loading>Submit</Button3D>
+
+// Loading with text
+<Button3D loading loadingText="Saving...">Save</Button3D>
+
+// Dynamic loading state
+const [isLoading, setIsLoading] = useState(false);
+
+<Button3D
+  loading={isLoading}
+  loadingText="Processing..."
+  onPress={async () => {
+    setIsLoading(true);
+    await submitForm();
+    setIsLoading(false);
+  }}
+>
+  Submit
+</Button3D>
+```
+
+### Icon Only Buttons
+
+```tsx
+<Button3D iconOnly size="md">
+  <PlusIcon />
+</Button3D>
+
+// Circular icon button
+<Button3D iconOnly rounded="full" type="success">
+  <CheckIcon />
+</Button3D>
 ```
 
 ### With Icons
@@ -328,11 +439,24 @@ const [notifications, setNotifications] = useState(true);
 ### Dimensions & Layout
 
 ```css
---button-default-height: 48px;
+--button-default-height: 40px; /* Base height (md size) */
 --button-default-font-size: 14px;
+--button-default-line-height: 20px;
 --button-default-border-radius: 6px;
---button-horizontal-padding: 20px;
---button-vertical-padding: 8px;
+--button-horizontal-padding: 18px;
+```
+
+### Size-Specific Variables
+
+Each size overrides the base dimensions:
+
+```css
+/* xs: 24px height */
+/* sm: 32px height */
+/* md: 40px height (default) */
+/* lg: 48px height */
+/* xl: 56px height */
+/* 2xl: 64px height */
 ```
 
 ### 3D Effect & Animation

@@ -21,8 +21,6 @@ coverage/
 .nyc_output/
 
 # Environment
-.env
-.env.local
 .env.*.local
 
 # Misc
@@ -32,3 +30,4 @@ coverage/
 # Package testing
 *.tgz.json
 package/
+config.bat
